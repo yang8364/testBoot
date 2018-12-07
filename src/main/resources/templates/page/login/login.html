@@ -63,6 +63,7 @@
                 success:function (data) {
                     if (data == 'true'){
                         layer.msg("登录成功");
+                        window.location.href=path + "/firstPage";
                     }else{
                         layer.msg('登录名或密码错误');
                     }

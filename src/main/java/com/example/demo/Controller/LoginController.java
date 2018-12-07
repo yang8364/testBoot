@@ -40,7 +40,10 @@ public class LoginController {
         User usera = userService.getUser(user);
 
 
-
         return  usera != null;
+    }
+    @RequestMapping("/firstPage")
+    public String firstPage(){
+        return "/firstPage/index";
     }
 }
