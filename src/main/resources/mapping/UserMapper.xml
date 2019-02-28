@@ -12,13 +12,13 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from user
+    from users
     where id = #{id,jdbcType=VARCHAR}
   </select>
 
   <insert id="insert" parameterType="com.example.demo.model.User" keyProperty="id">
     <selectKey keyProperty="id" resultType="String" order="BEFORE"> select replace(uuid(),'-','') from dual </selectKey>
-    insert into user (id, userName, passWord
+    insert into users (id, userName, passWord
       )
     values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR},
       )
@@ -26,7 +26,7 @@
   <select id="getUser" resultMap="BaseResultMap" parameterType="com.example.demo.model.User" >
     select
     <include refid="Base_Column_List" />
-    from user
+    from users
     <trim prefix="WHERE" prefixOverrides="AND|OR">
         <if test="userName != null">
             and userName = #{userName,jdbcType=VARCHAR}

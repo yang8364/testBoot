@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MySql">
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://144.34.169.78:3306/ych_test"
+                userId="ych"
+                password="!Etoak123"/>
+        <javaModelGenerator targetPackage="com.example.demo.model" targetProject="src/main/java"></javaModelGenerator>
+
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="mapping" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <!--生成service,serviceImpl-->
+        <javaServiceGenerator type="XMLSERVICE" targetPackage="com.example.demo.service" targetProject="src/main/java"
+                              implementationPackage="com.example.demo.service">
+        </javaServiceGenerator>
+
+        <!--生成controller-->
+        <javaControllerGenerator type="XMLController" targetPackage="com.example.demo.controller" targetProject="src/main/java">
+            <property name="superClass" value="com.example.demo.controller"></property>
+        </javaControllerGenerator>
+
+
+        <table tableName="test_user"></table>
+    </context>
+</generatorConfiguration>

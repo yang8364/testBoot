@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<!-- 使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.example.demo.mapper.WxUserMapper">
+
+	<resultMap id="WxUserMap" type="com.example.demo.model.WxUser">
+        <result property="id" column="id"/>
+        <result property="userName" column="userName"/>
+        <result property="passWord" column="passWord"/>
+        <result property="phoneNo" column="phone_no"/>
+        <result property="state" column="state"/>
+        <result property="openid" column="openid"/>
+        <result property="auth" column="auth"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+	</resultMap>
+	<!-- 分页查询接口 -->
+	<!--<select id="getWxUserListPage" parameterType="WxUser"
+		resultMap="WxUserMap">
+		select * from wx_user
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="userName!=null and userName!=''">
+				AND userName = #{userName}
+			</if>
+			<if test="passWord!=null and passWord!=''">
+				AND passWord = #{passWord}
+			</if>
+			<if test="phoneNo!=null and phoneNo!=''">
+				AND phone_no = #{phoneNo}
+			</if>
+			<if test="state!=null and state!=''">
+				AND state = #{state}
+			</if>
+			<if test="openid!=null and openid!=''">
+				AND openid = #{openid}
+			</if>
+			<if test="auth!=null and auth!=''">
+				AND auth = #{auth}
+			</if>
+			<if test="createTime!=null and createTime!=''">
+				AND create_time = #{createTime}
+			</if>
+			<if test="updateTime!=null and updateTime!=''">
+				AND update_time = #{updateTime}
+			</if>
+		</trim> 
+	</select>-->
+	<!-- 不分页查询接口 -->
+	<select id="getWxUserList" parameterType="com.example.demo.model.WxUser"
+		resultMap="WxUserMap">
+		select * from wx_user
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			 <if test="userName!=null and userName!=''">
+				AND userName = #{userName}
+	        </if>
+			 <if test="passWord!=null and passWord!=''">
+				AND passWord = #{passWord}
+	        </if>
+			 <if test="phoneNo!=null and phoneNo!=''">
+				AND phone_no = #{phoneNo}
+	        </if>
+			 <if test="state!=null and state!=''">
+				AND state = #{state}
+	        </if>
+			 <if test="openid!=null and openid!=''">
+				AND openid = #{openid}
+	        </if>
+			 <if test="auth!=null and auth!=''">
+				AND auth = #{auth}
+	        </if>
+			 <if test="createTime!=null and createTime!=''">
+				AND create_time = #{createTime}
+	        </if>
+			 <if test="updateTime!=null and updateTime!=''">
+				AND update_time = #{updateTime}
+	        </if>
+		</trim> 
+	</select>
+	<!-- 按编号查询 -->
+	<select id="getWxUserById" parameterType="int" resultMap="WxUserMap">
+		select *
+		from wx_user where id = #{id}
+	</select>
+	<!-- 添加 -->
+	<insert id="insertWxUser" parameterType="com.example.demo.model.WxUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO wx_user (
+        	id ,
+        	userName ,
+        	passWord ,
+        	phone_no ,
+        	state ,
+        	openid ,
+        	auth ,
+        	create_time ,
+        	update_time 
+        ) VALUES (
+        	#{id} ,
+        	#{userName} ,
+        	#{passWord} ,
+        	#{phoneNo} ,
+        	#{state} ,
+        	#{openid} ,
+        	#{auth} ,
+        	now() ,
+        	now()
+        )
+	</insert>
+	<!-- 批量添加 -->
+	<insert id="insertWxUserBatch" parameterType="java.util.List"
+		useGeneratedKeys="true" keyProperty="id">
+		<selectKey resultType="long" keyProperty="id"
+			order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+        INSERT INTO wx_user (
+        	id ,
+        	userName ,
+        	passWord ,
+        	phone_no ,
+        	state ,
+        	openid ,
+        	auth ,
+        	create_time ,
+        	update_time 
+        ) VALUES 
+		<foreach collection="list" item="com.example.demo.model.WxUser" index="index"
+			separator=",">
+			(
+				#{WxUser.id} ,
+				#{WxUser.userName} ,
+				#{WxUser.passWord} ,
+				#{WxUser.phoneNo} ,
+				#{WxUser.state} ,
+				#{WxUser.openid} ,
+				#{WxUser.auth} ,
+				#{WxUser.createTime} ,
+				#{WxUser.updateTime} 
+			)
+		</foreach>
+	</insert>
+	<!-- 修改 -->
+	<update id="updateWxUser" >
+        UPDATE wx_user 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="userName!=null and userName!=''">
+	        userName = #{userName},
+	        </if>
+			<if test="passWord!=null and passWord!=''">
+	        passWord = #{passWord},
+	        </if>
+			<if test="phoneNo!=null and phoneNo!=''">
+	        phone_no = #{phoneNo},
+	        </if>
+			<if test="state!=null and state!=''">
+	        state = #{state},
+	        </if>
+			<if test="openid!=null and openid!=''">
+	        openid = #{openid},
+	        </if>
+			<if test="auth!=null and auth!=''">
+	        auth = #{auth},
+	        </if>
+			<if test="createTime!=null and createTime!=''">
+	        create_time = #{createTime},
+	        </if>
+			<if test="updateTime!=null and updateTime!=''">
+	        update_time = #{updateTime},
+	        </if>
+		</trim>  
+        WHERE 
+	        id = #{id} 
+	</update>
+	<!-- 删除 -->
+	<delete id="deleteWxUser" parameterType="int">
+        UPDATE wx_user set state='X' WHERE
+        id = #{id} 
+    </delete>
+	
+</mapper>
+

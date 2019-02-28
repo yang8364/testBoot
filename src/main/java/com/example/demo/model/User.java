@@ -1,5 +1,11 @@
 package com.example.demo.model;
 
+
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class User {
     private String id;
 
@@ -31,5 +37,13 @@ public class User {
         return userName;
     }
 
+    @Override
+    public String toString() {
+        Map map = new HashMap();
 
+        map.put("id",id);
+        map.put("userName" ,userName);
+        map.put("passWord",passWord);
+        return map.toString();
+    }
 }
