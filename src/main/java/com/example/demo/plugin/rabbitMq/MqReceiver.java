@@ -1,6 +1,5 @@
 package com.example.demo.plugin.rabbitMq;
 
-import com.example.demo.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
